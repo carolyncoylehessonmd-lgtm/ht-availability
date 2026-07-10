@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-"""Cost Plus Drugs availability checker (stealth) — self-contained, lives at repo root.
-Writes data.json (+ history.csv) next to itself. No config files, no subfolders."""
+"""Cost Plus Drugs availability checker (stealth v3) — self-contained, lives at repo root.
+Trusts Cost Plus's own structured stock data; never guesses 'unavailable' from page text."""
 import json, re, csv, datetime
 from pathlib import Path
 from playwright.sync_api import sync_playwright
@@ -39,8 +39,13 @@ PRODUCTS = [
 UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
       "(KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36")
 PRICE = re.compile(r"\$\s?\d{1,4}(?:\.\d{2})?")
-UNAVAIL = re.compile(r"currently unavailable|out of stock|sold out|no longer available|not available for", re.I)
-AVAIL = re.compile(r"add to cart|add to subscription|buy now|in stock", re.I)
+ADDCART = re.compile(r"add to cart|add to subscription|buy now", re.I)
+
+def norm_price(v):
+    if v in (None, ""):
+        return None
+    s = str(v)
+    return s if s.startswith("$") else "$" + s
 
 def parse_jsonld(page):
     for s in page.query_selector_all('script[type="application/ld+json"]'):
@@ -56,45 +61,47 @@ def parse_jsonld(page):
             if offers:
                 offer = offers[0] if isinstance(offers, list) else offers
                 if isinstance(offer, dict):
-                    return offer.get("price"), str(offer.get("availability") or "").lower()
+                    return offer.get("price"), str(offer.get("availability") or "")
     return None, None
 
 def check(page, url):
     try:
         r = page.goto(url, wait_until="domcontentloaded", timeout=45000)
     except Exception:
-        return {"url": url, "status": "unknown", "price": None, "len": 0}
+        return {"url": url, "status": "unknown", "price": None, "avail_raw": "goto-failed"}
     try:
-        page.wait_for_function("() => (document.body ? document.body.innerText : '').includes('$')", timeout=15000)
+        page.wait_for_function(
+            "() => Array.from(document.querySelectorAll('script[type=\"application/ld+json\"]'))"
+            ".some(s => (s.textContent||'').includes('offers'))",
+            timeout=20000)
     except Exception:
         pass
-    page.wait_for_timeout(1500)
+    page.wait_for_timeout(1000)
     if r and r.status >= 400:
-        return {"url": url, "status": "unavailable", "price": None, "len": 0}
+        return {"url": url, "status": "unavailable", "price": None, "avail_raw": "http-%s" % r.status}
 
-    price_ld, avail_ld = parse_jsonld(page)
-    if avail_ld:
-        pr = ("$" + str(price_ld)) if price_ld else None
-        if "instock" in avail_ld or "preorder" in avail_ld or "limited" in avail_ld:
-            return {"url": url, "status": "available", "price": pr, "len": -1}
-        if "outofstock" in avail_ld or "soldout" in avail_ld or "discontinued" in avail_ld:
-            return {"url": url, "status": "unavailable", "price": pr, "len": -1}
+    price_ld, avail = parse_jsonld(page)
+    if avail:
+        a = avail.lower()
+        pr = norm_price(price_ld)
+        if any(k in a for k in ["outofstock", "soldout", "discontinued", "backorder"]):
+            st = "unavailable"
+        elif any(k in a for k in ["instock", "limitedavailability", "onlineonly", "instoreonly", "preorder", "presale"]):
+            st = "available"
+        else:
+            st = "unknown"
+        return {"url": url, "status": st, "price": pr, "avail_raw": avail}
 
     text = page.inner_text("body") if page.query_selector("body") else ""
-    n = len(text.strip())
-    if n < 200:                        # got a blank / blocked page — don't claim "not listed"
-        return {"url": url, "status": "unknown", "price": None, "len": n}
     m = PRICE.search(text)
     price = m.group(0).replace(" ", "") if m else None
-    if UNAVAIL.search(text):
-        return {"url": url, "status": "unavailable", "price": price, "len": n}
-    if price or AVAIL.search(text):
-        return {"url": url, "status": "available", "price": price, "len": n}
-    return {"url": url, "status": "unknown", "price": price, "len": n}
+    if price or ADDCART.search(text):
+        return {"url": url, "status": "available", "price": price, "avail_raw": "from-text"}
+    return {"url": url, "status": "unknown", "price": price, "avail_raw": "no-data(len=%d)" % len(text.strip())}
 
 def main():
     now = datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds")
-    results, sample_len = [], None
+    results = []
     with sync_playwright() as p:
         browser = p.chromium.launch(args=["--disable-blink-features=AutomationControlled"])
         context = browser.new_context(user_agent=UA, viewport={"width": 1280, "height": 900},
@@ -106,10 +113,6 @@ def main():
             entry = {"id": prod["id"], "label": prod["label"], "items": []}
             for strength, url in prod["items"]:
                 r = check(page, url)
-                if sample_len is None:
-                    sample_len = r.pop("len", None)
-                else:
-                    r.pop("len", None)
                 r["strength"] = strength
                 entry["items"].append(r)
             states = [i["status"] for i in entry["items"]]
@@ -122,8 +125,7 @@ def main():
             results.append(entry)
         browser.close()
 
-    data = {"generated_at": now, "source": "https://www.costplusdrugs.com",
-            "_debug": {"first_page_text_length": sample_len}, "products": results}
+    data = {"generated_at": now, "source": "https://www.costplusdrugs.com", "products": results}
     (HERE / "data.json").write_text(json.dumps(data, indent=2))
 
     hist = HERE / "history.csv"
@@ -135,7 +137,7 @@ def main():
         for prod in results:
             for i in prod["items"]:
                 w.writerow([now, prod["id"], i["strength"], i["status"], i.get("price", ""), i["url"]])
-    print("wrote data.json — first_page_text_length =", sample_len)
+    print("wrote data.json —", sum(len(p['items']) for p in results), "items")
 
 if __name__ == "__main__":
     main()
