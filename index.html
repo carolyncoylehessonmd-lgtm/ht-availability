@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Menopause Med Availability — Cost Plus Drugs</title>
+<style>
+  :root{ --ink:#22303a; --muted:#5c6b7a; --line:#e4e7eb;
+         --ok:#1f7a4d; --okbg:#e8f4ee; --no:#9a3030; --nobg:#f7ebeb; --unk:#6b6f76; --unkbg:#eef0f2;
+         --brand:#0b4f8a; --card:#fff; --bg:#f5f7f9; }
+  *{box-sizing:border-box} body{margin:0;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.45}
+  .wrap{max-width:900px;margin:0 auto;padding:28px 20px 60px}
+  h1{font-size:26px;margin:0 0 4px} .sub{color:var(--muted);margin:0 0 6px}
+  .stamp{color:var(--muted);font-size:13px;margin-bottom:22px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin-bottom:14px}
+  .row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .name{font-weight:700;font-size:16px}
+  .chip{font-size:12px;font-weight:700;padding:3px 10px;border-radius:999px;text-transform:uppercase;letter-spacing:.4px}
+  .available{color:var(--ok);background:var(--okbg)} .unavailable{color:var(--no);background:var(--nobg)} .unknown{color:var(--unk);background:var(--unkbg)}
+  table{width:100%;border-collapse:collapse;margin-top:10px;font-size:14px}
+  td{padding:6px 8px;border-top:1px solid var(--line)} td.s{color:var(--muted);width:150px} td.st{width:120px} td.pr{width:90px;text-align:right}
+  a{color:var(--brand);text-decoration:none} a:hover{text-decoration:underline}
+  .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:middle}
+  .dot.available{background:var(--ok)} .dot.unavailable{background:var(--no)} .dot.unknown{background:var(--unk)}
+  .foot{color:var(--muted);font-size:12px;margin-top:26px;border-top:1px solid var(--line);padding-top:14px}
+</style></head>
+<body><div class="wrap">
+  <h1>Menopause Med Availability — Cost Plus Drugs</h1>
+  <p class="sub">Estrogen &amp; progesterone products at Mark Cuban Cost Plus Drugs.</p>
+  <p class="stamp" id="stamp">Loading…</p>
+  <div id="list"></div>
+  <div class="foot">Educational use only — not medical advice. Prices and stock change; confirm on
+    <a href="https://www.costplusdrugs.com" target="_blank" rel="noopener">costplusdrugs.com</a>. Auto-checked twice daily.</div>
+</div>
+<script>
+const cls=s=>(s==='available'||s==='unavailable')?s:'unknown';
+const label=s=>s==='available'?'Available':s==='unavailable'?'Not listed':'Check';
+fetch('data.json?_='+Date.now()).then(r=>r.json()).then(d=>{
+  document.getElementById('stamp').textContent='Last checked: '+new Date(d.generated_at).toLocaleString();
+  const list=document.getElementById('list');
+  d.products.forEach(p=>{
+    const c=document.createElement('div'); c.className='card';
+    let h='<div class="row"><span class="chip '+cls(p.status)+'">'+label(p.status)+'</span><span class="name">'+p.label+'</span></div><table>';
+    (p.items||[]).forEach(i=>{ h+='<tr><td class="s">'+(i.strength||'')+'</td><td class="st"><span class="dot '+cls(i.status)+'"></span>'+label(i.status)+'</td><td class="pr">'+(i.price||'')+'</td><td><a href="'+i.url+'" target="_blank" rel="noopener">view</a></td></tr>'; });
+    h+='</table>'; c.innerHTML=h; list.appendChild(c);
+  });
+}).catch(()=>{document.getElementById('stamp').textContent='No data yet — it appears after the first checker run.';});
+</script>
+</body></html>
