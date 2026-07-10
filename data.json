@@ -1,8 +1,142 @@
 {
-  "generated_at": "2026-07-10T13:00:00+00:00",
+  "generated_at": "2026-07-10T17:35:01+00:00",
   "source": "https://www.costplusdrugs.com",
   "products": [
-    { "id": "patch-2x", "label": "Estradiol patch — twice-weekly", "status": "unknown",
-      "items": [ { "strength": "sample — real data appears after the first run", "status": "unknown", "price": "", "url": "https://www.costplusdrugs.com" } ] }
+    {
+      "id": "patch-2x",
+      "label": "Estradiol patch \u2014 twice-weekly",
+      "items": [
+        {
+          "url": "https://www.costplusdrugs.com/medications/estradioltwiceweekly-0_025mg-patch8pack/",
+          "status": "unavailable",
+          "price": null,
+          "strength": "0.025 mg/day"
+        },
+        {
+          "url": "https://www.costplusdrugs.com/medications/estradioltwiceweekly-0_0375mg-patch8pack/",
+          "status": "unavailable",
+          "price": null,
+          "strength": "0.0375 mg/day"
+        },
+        {
+          "url": "https://www.costplusdrugs.com/medications/estradioltwiceweekly-0_05mg-patch8pack/",
+          "status": "unavailable",
+          "price": null,
+          "strength": "0.05 mg/day"
+        },
+        {
+          "url": "https://www.costplusdrugs.com/medications/estradioltwiceweekly-0_075mg-patch8pack/",
+          "status": "unavailable",
+          "price": null,
+          "strength": "0.075 mg/day"
+        },
+        {
+          "url": "https://www.costplusdrugs.com/medications/dotti-(estradiol-twice-weekly)-0_1-mg_24hr-box-of-8-patches-8/",
+          "status": "unavailable",
+          "price": null,
+          "strength": "0.1 mg/day (Dotti)"
+        }
+      ],
+      "status": "unavailable"
+    },
+    {
+      "id": "patch-1x",
+      "label": "Estradiol patch \u2014 once-weekly (Climara)",
+      "items": [
+        {
+          "url": "https://www.costplusdrugs.com/medications/climara-0_025mg-24hr-patch-weekly-4/",
+          "status": "unavailable",
+          "price": null,
+          "strength": "0.025 mg/day"
+        },
+        {
+          "url": "https://www.costplusdrugs.com/medications/climara-0_0375mg-24hr-patch-weekly-4/",
+          "status": "unavailable",
+          "price": null,
+          "strength": "0.0375 mg/day"
+        },
+        {
+          "url": "https://www.costplusdrugs.com/medications/climara-0_05mg-24hr-patch-weekly-4/",
+          "status": "unavailable",
+          "price": null,
+          "strength": "0.05 mg/day"
+        },
+        {
+          "url": "https://www.costplusdrugs.com/medications/climara-0_06mg-24hr-patch-weekly-4/",
+          "status": "unavailable",
+          "price": null,
+          "strength": "0.06 mg/day"
+        },
+        {
+          "url": "https://www.costplusdrugs.com/medications/climara-0_075mg-24hr-patch-weekly-4/",
+          "status": "unavailable",
+          "price": null,
+          "strength": "0.075 mg/day"
+        },
+        {
+          "url": "https://www.costplusdrugs.com/medications/climara-0_1mg-24hr-patch-weekly-4/",
+          "status": "unavailable",
+          "price": null,
+          "strength": "0.1 mg/day"
+        }
+      ],
+      "status": "unavailable"
+    },
+    {
+      "id": "gel",
+      "label": "Estradiol gel \u2014 sachet (Divigel)",
+      "items": [
+        {
+          "url": "https://www.costplusdrugs.com/medications/estradiol-0_25mg-0_25g-gel-packet-divigel/",
+          "status": "unavailable",
+          "price": null,
+          "strength": "0.25 mg / 0.25 g"
+        },
+        {
+          "url": "https://www.costplusdrugs.com/medications/estradiol-0_5mg-0_5g-gel-packet-divigel/",
+          "status": "unavailable",
+          "price": null,
+          "strength": "0.5 mg / 0.5 g"
+        },
+        {
+          "url": "https://www.costplusdrugs.com/medications/estradiol-0_75mg-0_75g-gel-packet-divigel/",
+          "status": "unavailable",
+          "price": null,
+          "strength": "0.75 mg / 0.75 g"
+        },
+        {
+          "url": "https://www.costplusdrugs.com/medications/estradiol-1mg-g-gel-packet-divigel/",
+          "status": "unavailable",
+          "price": null,
+          "strength": "1 mg / 1 g"
+        },
+        {
+          "url": "https://www.costplusdrugs.com/medications/estradiol-1_25-mg_1_25gm-gel-37_5/",
+          "status": "unavailable",
+          "price": null,
+          "strength": "1.25 mg / 1.25 g"
+        }
+      ],
+      "status": "unavailable"
+    },
+    {
+      "id": "omp",
+      "label": "Oral micronized progesterone",
+      "items": [
+        {
+          "url": "https://www.costplusdrugs.com/medications/progesterone-100mg-capsule/",
+          "status": "unavailable",
+          "price": null,
+          "strength": "100 mg"
+        },
+        {
+          "url": "https://www.costplusdrugs.com/medications/progesterone-200mg-capsule/",
+          "status": "unavailable",
+          "price": null,
+          "strength": "200 mg"
+        }
+      ],
+      "status": "unavailable"
+    }
   ]
 }
