@@ -179,3 +179,21 @@ checked_at,product,strength,status,price,url
 2026-07-14T03:58:18+00:00,gel,1.25 mg / 1.25 g,available,$33.27,https://www.costplusdrugs.com/medications/estradiol-1_25-mg_1_25gm-gel-37_5/
 2026-07-14T03:58:18+00:00,omp,100 mg,available,$9.45,https://www.costplusdrugs.com/medications/progesterone-100mg-capsule/
 2026-07-14T03:58:18+00:00,omp,200 mg,available,$11.87,https://www.costplusdrugs.com/medications/progesterone-200mg-capsule/
+2026-07-14T14:41:42+00:00,patch-2x,0.025 mg/day,unavailable,$39.18,https://www.costplusdrugs.com/medications/estradioltwiceweekly-0_025mg-patch8pack/
+2026-07-14T14:41:42+00:00,patch-2x,0.0375 mg/day,unavailable,$39.18,https://www.costplusdrugs.com/medications/estradioltwiceweekly-0_0375mg-patch8pack/
+2026-07-14T14:41:42+00:00,patch-2x,0.05 mg/day,available,$39.18,https://www.costplusdrugs.com/medications/estradioltwiceweekly-0_05mg-patch8pack/
+2026-07-14T14:41:42+00:00,patch-2x,0.075 mg/day,available,$39.18,https://www.costplusdrugs.com/medications/estradioltwiceweekly-0_075mg-patch8pack/
+2026-07-14T14:41:42+00:00,patch-2x,0.1 mg/day (Dotti),available,$39.18,https://www.costplusdrugs.com/medications/dotti-(estradiol-twice-weekly)-0_1-mg_24hr-box-of-8-patches-8/
+2026-07-14T14:41:42+00:00,patch-1x,0.025 mg/day,available,$53.3,https://www.costplusdrugs.com/medications/climara-0_025mg-24hr-patch-weekly-4/
+2026-07-14T14:41:42+00:00,patch-1x,0.0375 mg/day,available,$53.3,https://www.costplusdrugs.com/medications/climara-0_0375mg-24hr-patch-weekly-4/
+2026-07-14T14:41:42+00:00,patch-1x,0.05 mg/day,available,$53.3,https://www.costplusdrugs.com/medications/climara-0_05mg-24hr-patch-weekly-4/
+2026-07-14T14:41:42+00:00,patch-1x,0.06 mg/day,available,$53.3,https://www.costplusdrugs.com/medications/climara-0_06mg-24hr-patch-weekly-4/
+2026-07-14T14:41:42+00:00,patch-1x,0.075 mg/day,available,$53.3,https://www.costplusdrugs.com/medications/climara-0_075mg-24hr-patch-weekly-4/
+2026-07-14T14:41:42+00:00,patch-1x,0.1 mg/day,available,$53.3,https://www.costplusdrugs.com/medications/climara-0_1mg-24hr-patch-weekly-4/
+2026-07-14T14:41:42+00:00,gel,0.25 mg / 0.25 g,available,$23.43,https://www.costplusdrugs.com/medications/estradiol-0_25mg-0_25g-gel-packet-divigel/
+2026-07-14T14:41:42+00:00,gel,0.5 mg / 0.5 g,available,$33.75,https://www.costplusdrugs.com/medications/estradiol-0_5mg-0_5g-gel-packet-divigel/
+2026-07-14T14:41:42+00:00,gel,0.75 mg / 0.75 g,available,$23.03,https://www.costplusdrugs.com/medications/estradiol-0_75mg-0_75g-gel-packet-divigel/
+2026-07-14T14:41:42+00:00,gel,1 mg / 1 g,available,$26.85,https://www.costplusdrugs.com/medications/estradiol-1mg-g-gel-packet-divigel/
+2026-07-14T14:41:42+00:00,gel,1.25 mg / 1.25 g,available,$33.27,https://www.costplusdrugs.com/medications/estradiol-1_25-mg_1_25gm-gel-37_5/
+2026-07-14T14:41:42+00:00,omp,100 mg,available,$9.45,https://www.costplusdrugs.com/medications/progesterone-100mg-capsule/
+2026-07-14T14:41:42+00:00,omp,200 mg,available,$11.87,https://www.costplusdrugs.com/medications/progesterone-200mg-capsule/
