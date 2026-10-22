@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-21T17:43:35+00:00",
+  "generated_at": "2026-10-22T05:50:21+00:00",
   "source": "https://www.costplusdrugs.com",
   "products": [
     {
@@ -8,9 +8,9 @@
       "items": [
         {
           "url": "https://www.costplusdrugs.com/medications/estradioltwiceweekly-0_025mg-patch8pack/",
-          "status": "available",
-          "price": "$94.61",
-          "avail_raw": "https://schema.org/InStock",
+          "status": "unavailable",
+          "price": null,
+          "avail_raw": "http-404",
           "strength": "0.025 mg/day"
         },
         {
@@ -42,7 +42,7 @@
           "strength": "0.1 mg/day (Dotti)"
         }
       ],
-      "status": "available"
+      "status": "unavailable"
     },
     {
       "id": "patch-1x",
